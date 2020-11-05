@@ -53,7 +53,9 @@ def removeItem(itemName, qt=1):
     print('Remove Item')    
 
 def respond(msg):
-    engine = pyttsx3.init()
+    engine=pyttsx3.init('sapi5')
+    voices=engine.getProperty('voices')
+    engine.setProperty('voice','voices[1].id')
     print(msg)
     engine.say(msg)
     engine.runAndWait()
