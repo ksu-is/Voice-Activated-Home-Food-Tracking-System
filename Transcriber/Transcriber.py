@@ -1,6 +1,7 @@
 #Test
 import os 
 import speech_recognition as sr
+
 def addItem(itemName,qt=1):
     inventoryFile = open('inventory.csv','r+')
     inventoryFile.seek(0)
@@ -22,7 +23,32 @@ def addItem(itemName,qt=1):
     inventoryFile = open('inventory.csv','w+')
     inventoryFile.seek(0) 
     inventoryFile.write("".join(lines))
-def removeItem():
+
+def removeItem(itemName, qt=1):
+    inventoryFile = open('inventory.csv','r+')
+    inventoryFile.seek(0)
+    lines = inventoryFile.readlines()
+    inventoryFile.close()
+    print(lines)
+    found = False
+    for index in range(len(lines)):
+        if itemName in lines[index]:
+            print(lines[index])
+            temp = lines[index].split(',')
+            temp2= temp[1]
+            oldQ=int(temp2)
+            found=True
+            if oldQ-qt >0:
+                lines[index]=itemName+','+str(oldQ-int(qt))+'\n'
+            else:
+                lines.remove(index)
+            #found = True
+            break
+    if(not found):
+        print(itemName,'not found')
+    inventoryFile = open('inventory.csv','w+')
+    inventoryFile.seek(0) 
+    inventoryFile.write("".join(lines))
     print('Remove Item')    
 
 r = sr.Recognizer()
@@ -39,6 +65,8 @@ while(not "stop" in text.lower().strip()):
         print("Sorry could not recognize your voice")
     if text.lower().strip() =='add item':
         addItem('milk',1)
+    if text.lower().strip() =='remove item':
+        removeItem('milk',1)
     
 
 print("exiting")
