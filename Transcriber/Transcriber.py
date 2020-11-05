@@ -1,7 +1,8 @@
 #Test
-import os 
+#import os 
 import speech_recognition as sr
-
+import pyttsx3
+engine = ""
 def addItem(itemName,qt=1):
     inventoryFile = open('inventory.csv','r+')
     inventoryFile.seek(0)
@@ -51,11 +52,17 @@ def removeItem(itemName, qt=1):
     inventoryFile.write("".join(lines))
     print('Remove Item')    
 
+def respond(msg):
+    engine = pyttsx3.init()
+    print(msg)
+    engine.say(msg)
+    engine.runAndWait()
+
 r = sr.Recognizer()
 text = "default"
 while(not "stop" in text.lower().strip()):            
     with sr.Microphone() as source:     
-        print("Speak Anything :")
+        respond("Speak Anything :")
         r.adjust_for_ambient_noise(source)
         audio = r.listen(source) 
     try:
