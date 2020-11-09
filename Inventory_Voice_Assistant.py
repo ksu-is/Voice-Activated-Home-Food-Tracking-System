@@ -62,6 +62,21 @@ def removeItem(itemName, qt=1):
     inventoryFile.write("".join(lines))
     respond('Remove Item')    
 
+def getAudio():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:     
+        #respond("Speak Anything :")
+        r.adjust_for_ambient_noise(source)
+        audio = r.listen(source) 
+    try:
+        text = r.recognize_google(audio)
+        text = text.lower().strip()    
+        respond("You said : {}".format(text))
+        return(text) 
+    except:
+        respond("Sorry could not recognize your voice")
+        return(getAudio())
+    
 
 
 
@@ -71,24 +86,21 @@ def main():
         inventoryFile = open('inventory.csv','w')
         inventoryFile.close()
 
-    r = sr.Recognizer()
     text = "default"
-    while(not "stop" in text.lower().strip()):            
-        with sr.Microphone() as source:     
-            #respond("Speak Anything :")
-            r.adjust_for_ambient_noise(source)
-            audio = r.listen(source) 
-        try:
-            text = r.recognize_google(audio)    
-            respond("You said : {}".format(text))
-        except:
-           respond("Sorry could not recognize your voice")
-        if text.lower().strip() =='hey kitchen':
+    while(not "stop" in text):            
+        text=getAudio()
+        if 'hey kitchen' in text:
             respond('I am listening')
-            if text.lower().strip() =='add item':
-                addItem('milk',1)
-            if text.lower().strip() =='remove item':
-                removeItem('milk',1)
+            text=getAudio()
+            print(text)
+            if text.startswith('add'):
+                item = text.strip('add').strip()
+                print(item)
+                addItem(item,1)
+            if text.startswith('remove'):
+                item = text.strip('remove').strip()
+                print(item)
+                removeItem(item,1)
     
     respond("exiting")
 main()
