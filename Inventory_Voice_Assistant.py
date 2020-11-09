@@ -64,6 +64,7 @@ def removeItem(itemName, qt=1):
 
 
 
+
 def main():
     # If inventory.csv does not exist, create the file
     if (not path.exists("inventory.csv")):
@@ -74,7 +75,7 @@ def main():
     text = "default"
     while(not "stop" in text.lower().strip()):            
         with sr.Microphone() as source:     
-            respond("Speak Anything :")
+            #respond("Speak Anything :")
             r.adjust_for_ambient_noise(source)
             audio = r.listen(source) 
         try:
@@ -82,10 +83,12 @@ def main():
             respond("You said : {}".format(text))
         except:
            respond("Sorry could not recognize your voice")
-        if text.lower().strip() =='add item':
-            addItem('milk',1)
-        if text.lower().strip() =='remove item':
-            removeItem('milk',1)
+        if text.lower().strip() =='hey kitchen':
+            respond('I am listening')
+            if text.lower().strip() =='add item':
+                addItem('milk',1)
+            if text.lower().strip() =='remove item':
+                removeItem('milk',1)
     
     respond("exiting")
 main()
