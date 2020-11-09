@@ -17,11 +17,11 @@ def addItem(itemName,qt=1):
     inventoryFile.seek(0)
     lines = inventoryFile.readlines()
     inventoryFile.close()
-    print(lines)
+    #print(lines)
     found = False
     for index in range(len(lines)):
         if itemName in lines[index]:
-            print(lines[index])
+            #print(lines[index])
             temp = lines[index].split(',')
             temp2= temp[1]
             oldQ=int(temp2)
@@ -39,15 +39,15 @@ def removeItem(itemName, qt=1):
     inventoryFile.seek(0)
     lines = inventoryFile.readlines()
     inventoryFile.close()
-    print(lines)
+    #print(lines)
     found = False
     for index in range(len(lines)):
         if itemName in lines[index]:
-            print(lines[index])
+            #print(lines[index])
             temp = lines[index].split(',')
             temp2= temp[1]
-            oldQ=int(temp2)
-            found=True
+            oldQ= int(temp2)
+            found= True
             if oldQ-qt >0:
                 lines[index]=itemName+','+str(oldQ-int(qt))+'\n'
             else:
@@ -55,11 +55,11 @@ def removeItem(itemName, qt=1):
             #found = True
             break
     if(not found):
-        print(itemName,'not found')
+        respond(itemName + ' not found')
     inventoryFile = open('inventory.csv','w+')
     inventoryFile.seek(0) 
     inventoryFile.write("".join(lines))
-    print('Remove Item')    
+    respond('Remove Item')    
 
 
 
@@ -73,12 +73,12 @@ def main():
             audio = r.listen(source) 
         try:
             text = r.recognize_google(audio)    
-            print("You said : {}".format(text))
+            respond("You said : {}".format(text))
         except:
-            print("Sorry could not recognize your voice")
+           respond("Sorry could not recognize your voice")
         if text.lower().strip() =='add item':
             addItem('milk',1)
         if text.lower().strip() =='remove item':
             removeItem('milk',1)
     
-    print("exiting")
+    respond("exiting")
