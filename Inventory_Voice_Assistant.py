@@ -2,7 +2,16 @@
 #import os 
 import speech_recognition as sr
 import pyttsx3
-engine = ""
+
+def respond(msg):
+    engine=pyttsx3.init('sapi5')
+    voices=engine.getProperty('voices')
+    
+    engine.setProperty('voice',voices[1].id)
+    print(msg)
+    engine.say(msg)
+    engine.runAndWait()
+
 def addItem(itemName,qt=1):
     inventoryFile = open('inventory.csv','r+')
     inventoryFile.seek(0)
@@ -52,14 +61,7 @@ def removeItem(itemName, qt=1):
     inventoryFile.write("".join(lines))
     print('Remove Item')    
 
-def respond(msg):
-    engine=pyttsx3.init('sapi5')
-    voices=engine.getProperty('voices')
-    
-    engine.setProperty('voice',voices[1].id)
-    print(msg)
-    engine.say(msg)
-    engine.runAndWait()
+
 
 def main():
     r = sr.Recognizer()
@@ -79,5 +81,4 @@ def main():
         if text.lower().strip() =='remove item':
             removeItem('milk',1)
     
-
     print("exiting")
