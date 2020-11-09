@@ -1,5 +1,6 @@
 #Test
-#import os 
+import os.path
+from os import path 
 import speech_recognition as sr
 import pyttsx3
 
@@ -64,6 +65,11 @@ def removeItem(itemName, qt=1):
 
 
 def main():
+    # If inventory.csv does not exist, create the file
+    if (not path.exists("inventory.csv")):
+        inventoryFile = open('inventory.csv','w')
+        inventoryFile.close()
+
     r = sr.Recognizer()
     text = "default"
     while(not "stop" in text.lower().strip()):            
@@ -82,3 +88,4 @@ def main():
             removeItem('milk',1)
     
     respond("exiting")
+main()
