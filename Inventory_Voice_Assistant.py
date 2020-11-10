@@ -77,6 +77,16 @@ def getAudio():
         respond("Sorry could not recognize your voice")
         return(getAudio())
     
+def confirm(msg):
+    respond(msg)
+    confirm = getAudio()
+    if 'yes' in confirm or 'ya' in confirm:
+        return True
+    elif 'no' in confirm:
+        return False
+    else:
+        respond('Sorry, I did not quite catch that. Please respond with yes or no.')
+        return(confirm(msg))
 
 
 
@@ -90,17 +100,30 @@ def main():
     while(not "stop" in text):            
         text=getAudio()
         if 'hey kitchen' in text:
-            respond('I am listening')
-            text=getAudio()
-            print(text)
-            if text.startswith('add'):
-                item = text.strip('add').strip()
-                print(item)
-                addItem(item,1)
-            if text.startswith('remove'):
-                item = text.strip('remove').strip()
-                print(item)
-                removeItem(item,1)
+            while True:
+                respond('Would you like to add or remove an item')
+                text=getAudio()
+                if 'nevermind' in text:
+                    respond('ok')
+                    break
+
+                elif text.startswith('add'):
+                    respond('What item would you like to add?')
+                    item = getAudio()
+                    while(not confirm('Just to be sure, you would like to add a '+item)):
+                        respond('What item would you like to add?')
+                        item=getAudio()  
+                    respond('Adding 1' + item)
+                    addItem(item,1)  
+                
+                elif text.startswith('remove'):
+                    respond('What item would you like to remove?')
+                    item = getAudio()
+                    while(not confirm('Just to be sure, you would like to remove a '+item)):
+                        respond('What item would you like to remove?')
+                        item=getAudio()  
+                    respond('removing 1 ' + item)
+                    addItem(item,1)
     
     respond("exiting")
 main()
