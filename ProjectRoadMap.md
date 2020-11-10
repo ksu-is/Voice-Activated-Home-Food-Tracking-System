@@ -1,7 +1,7 @@
 ## Week 2 
 - [x] replace all print statements with text to speech
 - [X] rename system "kitchen" to only respond to when called upon
-- [] program confirmation
+- [x] program confirmation
 - [X] allow user to add/remove custom item
 - []  
 
