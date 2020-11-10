@@ -110,17 +110,17 @@ def main():
                 elif text.startswith('add'):
                     respond('What item would you like to add?')
                     item = getAudio()
-                    while(not confirm('Just to be sure, you would like to add a '+item)):
+                    while(not confirm('Just to be sure, you would like to add 1 '+item)):
                         respond('What item would you like to add?')
                         item=getAudio()  
-                    respond('Adding 1' + item)
+                    respond('Adding 1 ' + item)
                     addItem(item,1)
                     break  
                 
                 elif text.startswith('remove'):
                     respond('What item would you like to remove?')
                     item = getAudio()
-                    while(not confirm('Just to be sure, you would like to remove a '+item)):
+                    while(not confirm('Just to be sure, you would like to remove 1 '+item)):
                         respond('What item would you like to remove?')
                         item=getAudio()  
                     respond('removing 1 ' + item)
