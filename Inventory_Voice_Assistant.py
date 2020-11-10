@@ -110,9 +110,15 @@ def main():
                 elif text.startswith('add'):
                     respond('What item would you like to add?')
                     item = getAudio()
+                    if 'nevermind' in item:
+                        break
                     while(not confirm('Just to be sure, you would like to add 1 '+item)):
                         respond('What item would you like to add?')
-                        item=getAudio()  
+                        item=getAudio()
+                        if 'nevermind' in item:
+                            break
+                    if 'nevermind' in item:
+                        break 
                     respond('Adding 1 ' + item)
                     addItem(item,1)
                     break  
@@ -120,9 +126,15 @@ def main():
                 elif text.startswith('remove'):
                     respond('What item would you like to remove?')
                     item = getAudio()
+                    if 'nevermind' in item:
+                        break
                     while(not confirm('Just to be sure, you would like to remove 1 '+item)):
                         respond('What item would you like to remove?')
-                        item=getAudio()  
+                        item=getAudio()
+                        if 'nevermind' in item:
+                            break  
+                    if 'nevermind' in item:
+                        break 
                     respond('removing 1 ' + item)
                     addItem(item,1)
                     break
