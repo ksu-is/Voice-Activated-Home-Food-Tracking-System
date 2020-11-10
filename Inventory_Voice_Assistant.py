@@ -114,7 +114,8 @@ def main():
                         respond('What item would you like to add?')
                         item=getAudio()  
                     respond('Adding 1' + item)
-                    addItem(item,1)  
+                    addItem(item,1)
+                    break  
                 
                 elif text.startswith('remove'):
                     respond('What item would you like to remove?')
@@ -124,6 +125,7 @@ def main():
                         item=getAudio()  
                     respond('removing 1 ' + item)
                     addItem(item,1)
-    
+                    break
+                
     respond("exiting")
 main()
