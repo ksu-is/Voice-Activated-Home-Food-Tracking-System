@@ -1,5 +1,5 @@
 # Voice-Activated-Home-Food-Tracking-System #
-In essence this voice assistant acts an inventory system for your kitchen.
+In essence this voice assistant acts as an inventory system for your kitchen.
  
 Dependencies needed for install: 
 1. SpeechRecognition 

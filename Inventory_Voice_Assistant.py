@@ -99,8 +99,7 @@ def main():
         inventoryFile.close()
 
     text = "default"
-    while(not 'exit kitchen'):            
-        print('not shut down kitchen in text','shut down kitchen' in text)
+    while(not "exit kitchen" in text):            
         text=getAudio()
         if 'hey kitchen' in text:
             while True:
