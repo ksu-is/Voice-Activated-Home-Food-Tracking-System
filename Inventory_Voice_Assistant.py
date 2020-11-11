@@ -64,7 +64,7 @@ def removeItem(itemName, qt=1):
     inventoryFile.write("".join(lines))
     respond('Removing Item',sysName)    
 
-def getAudio():
+def getAudio(silent=False):
     r = sr.Recognizer()
     with sr.Microphone() as source:     
         #respond("Speak Anything :")
@@ -72,12 +72,14 @@ def getAudio():
         audio = r.listen(source) 
     try:
         text = r.recognize_google(audio)
-        text = text.lower().strip()    
-        print('You:',text)
+        text = text.lower().strip()
+        if not silent:    
+            print('You:',text)
         return(text) 
     except:
-        respond("Sorry could not recognize your voice",sysName)
-        return(getAudio())
+        if not silent:
+            respond("Sorry could not recognize your voice",sysName)
+        return(getAudio(silent))
     
 def confirm(msg):
     respond(msg,sysName)
@@ -100,7 +102,7 @@ def main():
 
     text = "default"
     while(not "exit kitchen" in text):            
-        text=getAudio()
+        text=getAudio(True)
         if 'hey kitchen' in text:
             while True:
                 respond('Would you like to add or remove an item',sysName)
