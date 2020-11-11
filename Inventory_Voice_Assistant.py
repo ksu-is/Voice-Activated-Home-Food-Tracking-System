@@ -4,14 +4,12 @@ from os import path
 import speech_recognition as sr
 import pyttsx3
 
-sysName='Kitchen'
-
-def respond(msg,speaker):
+def respond(msg):
     engine=pyttsx3.init('sapi5')
     voices=engine.getProperty('voices')
     
     engine.setProperty('voice',voices[1].id)
-    print(speaker+':', msg)
+    print(msg)
     engine.say(msg)
     engine.runAndWait()
 
@@ -62,9 +60,9 @@ def removeItem(itemName, qt=1):
     inventoryFile = open('inventory.csv','w+')
     inventoryFile.seek(0) 
     inventoryFile.write("".join(lines))
-    respond('Removing Item',sysName)    
+    respond('Remove Item')    
 
-def getAudio(silent=False):
+def getAudio():
     r = sr.Recognizer()
     with sr.Microphone() as source:     
         #respond("Speak Anything :")
@@ -72,24 +70,22 @@ def getAudio(silent=False):
         audio = r.listen(source) 
     try:
         text = r.recognize_google(audio)
-        text = text.lower().strip()
-        if not silent:    
-            print('You:',text)
+        text = text.lower().strip()    
+        respond("You said : {}".format(text))
         return(text) 
     except:
-        if not silent:
-            respond("Sorry could not recognize your voice",sysName)
-        return(getAudio(silent))
+        respond("Sorry could not recognize your voice")
+        return(getAudio())
     
 def confirm(msg):
-    respond(msg,sysName)
-    c = getAudio()
-    if 'yes' in c or 'ya' in c or 'yeah' in c:
+    respond(msg)
+    confirm = getAudio()
+    if 'yes' in confirm or 'ya' in confirm:
         return True
-    elif 'no' in c:
+    elif 'no' in confirm:
         return False
     else:
-        respond('Sorry, I did not quite catch that. Please respond with yes or no.',sysName)
+        respond('Sorry, I did not quite catch that. Please respond with yes or no.')
         return(confirm(msg))
 
 
@@ -102,46 +98,46 @@ def main():
 
     text = "default"
     while(not "exit kitchen" in text):            
-        text=getAudio(True)
+        text=getAudio()
         if 'hey kitchen' in text:
             while True:
-                respond('Would you like to add or remove an item',sysName)
+                respond('Would you like to add or remove an item')
                 text=getAudio()
                 if 'nevermind' in text:
-                    respond('ok',sysName)
+                    respond('ok')
                     break
 
                 elif text.startswith('add'):
-                    respond('What item would you like to add?',sysName)
+                    respond('What item would you like to add?')
                     item = getAudio()
                     if 'nevermind' in item:
                         break
                     while(not confirm('Just to be sure, you would like to add 1 '+item)):
-                        respond('What item would you like to add?',sysName)
+                        respond('What item would you like to add?')
                         item=getAudio()
                         if 'nevermind' in item:
                             break
                     if 'nevermind' in item:
                         break 
-                    respond('Adding 1 ' + item,sysName)
+                    respond('Adding 1 ' + item)
                     addItem(item,1)
                     break  
                 
                 elif text.startswith('remove'):
-                    respond('What item would you like to remove?',sysName)
+                    respond('What item would you like to remove?')
                     item = getAudio()
                     if 'nevermind' in item:
                         break
                     while(not confirm('Just to be sure, you would like to remove 1 '+item)):
-                        respond('What item would you like to remove?',sysName)
+                        respond('What item would you like to remove?')
                         item=getAudio()
                         if 'nevermind' in item:
                             break  
                     if 'nevermind' in item:
                         break 
-                    respond('removing 1 ' + item,sysName)
+                    respond('removing 1 ' + item)
                     addItem(item,1)
                     break
                 
-    respond("exiting",sysName)
+    respond("exiting")
 main()
