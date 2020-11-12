@@ -140,7 +140,7 @@ def main():
                         item = findItem(text)
                         if 'nevermind' in item:
                             break
-                    confirmation = confirm('Just to be sure, you would like to remove'+' '+quantity+' '+item)
+                    confirmation = confirm('Just to be sure, you would like to add'+' '+quantity+' '+item)
                     if confirmation == 'nevermind':
                         break
                     while(confirmation != 'yes'):
