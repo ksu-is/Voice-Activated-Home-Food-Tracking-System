@@ -14,4 +14,4 @@ How to use:
 2. In order for the assistant to add or remove items, speak "hey kitchen".
 3. You can add or remove items to your inventory when prompted by saying "add" or "remove" followed by the quantity and the item name. So for example, "Add 7 bread" would add 7 bread to inventory and "Remove 7 bread" would remove 7 bread from inventory.
 4. To cancel at anytime speak "nevermind". To reopen you must use "hey kitchen"
-5. To exit assistant speak "exit kitchen".
+5. To exit assistant, speak "exit kitchen". You may not utilize the "exit kitchen" command while adding or removing items. You must speak "nevermind" first and then "exit".
