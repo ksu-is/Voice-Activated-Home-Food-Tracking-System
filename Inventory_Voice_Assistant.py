@@ -90,7 +90,22 @@ def confirm(msg):
         respond('Sorry, I did not quite catch that. Please respond with yes or no.',sysName)
         return(confirm(msg))
 
+#Function isolates the quanitity from the given text and returns quantity
+#Quantity must be stated before the item or Q will return ""
+def findQ(txt):
+    quantity = ""
+    for char in text:
+        if char.isdigit():
+            quantity+=char
+        else:
+            break
+    return quantity
 
+#Function strips out digits and returns the item to be added by the program
+def findItem(txt):
+    item = ""
+    item=txt.strip('0123456789').strip()
+    return item
 
 def main():
     # If inventory.csv does not exist, create the file
@@ -111,39 +126,53 @@ def main():
                     break
 
                 elif text.startswith('add'):
-                    item = text[3::].strip()
+                    text = text[3::].strip()
+                    quantity = findQ(text)
+                    item = findItem(text)
                     if item == "":
-                        respond('What item would you like to add?',sysName)
-                        item = getAudio()
-                    if 'nevermind' in item:
-                        break
-                    while(not confirm('Just to be sure, you would like to add 1 '+item)):
-                        respond('What item would you like to add?',sysName)
-                        item=getAudio()
+                        respond('What would you like to add?',sysName)
+                        text = getAudio()
+                        quantity = findQ(text)
+                        item = findItem(text)
                         if 'nevermind' in item:
                             break
-                    if 'nevermind' in item:
-                        break 
-                    respond('Adding 1 ' + item,sysName)
-                    addItem(item,1)
+                    while(not confirm('Just to be sure, you would like to add'quantity+' '+item)):
+                        respond('What would you like to add?',sysName)
+                        text=getAudio()
+                        item = findItem(text)
+                        quanity = findQ(text)
+                        if 'nevermind' in item:
+                            break
+                    respond('Adding '+quantity +' '+item,sysName)
+                    if quantity = "":
+                        addItem(item)
+                    else:
+                        addItem(item,quantity)
                     break  
                 
                 elif text.startswith('remove'):
                     item = text[6::].strip()
+                    quantity = findQ(text)
+                    item = findItem(text)
                     if item == "":
-                        respond('What item would you like to remove?',sysName)
-                        item = getAudio()
-                    if 'nevermind' in item:
-                        break
-                    while(not confirm('Just to be sure, you would like to remove 1 '+item)):
-                        respond('What item would you like to remove?',sysName)
-                        item=getAudio()
+                        respond('What would you like to remove?',sysName)
+                        text = getAudio()
+                        quantity = findQ(text)
+                        item = findItem(text)
                         if 'nevermind' in item:
-                            break  
-                    if 'nevermind' in item:
-                        break 
-                    respond('removing 1 ' + item,sysName)
-                    addItem(item,1)
+                            break
+                    while(not confirm('Just to be sure, you would like to remove'quantity+' '+item)):
+                        respond('What would you like to remove?',sysName)
+                        text=getAudio()
+                        item = findItem(text)
+                        quanity = findQ(text)
+                        if 'nevermind' in item:
+                            break
+                    respond('Removing '+quantity +' '+item,sysName)
+                    if quantity = "":
+                        removeItem(item)
+                    else:
+                        removeItem(item,quantity)
                     break
                 
     respond("exiting",sysName)
