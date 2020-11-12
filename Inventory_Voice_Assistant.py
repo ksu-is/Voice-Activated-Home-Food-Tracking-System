@@ -85,9 +85,11 @@ def confirm(msg):
     respond(msg,sysName)
     c = getAudio()
     if 'yes' in c or 'ya' in c or 'yeah' in c:
-        return True
+        return 'yes'
     elif 'no' in c:
-        return False
+        return 'no'
+    elif 'nevermind' in c:
+        return 'nevermind'
     else:
         respond('Sorry, I did not quite catch that. Please respond with yes or no.',sysName)
         return(confirm(msg))
@@ -138,13 +140,21 @@ def main():
                         item = findItem(text)
                         if 'nevermind' in item:
                             break
-                    while(not confirm('Just to be sure, you would like to add '+quantity+' '+item)):
+                    confirmation = confirm('Just to be sure, you would like to remove'+' '+quantity+' '+item)
+                    if confirmation == 'nevermind':
+                        break
+                    while(confirmation != 'yes'):
                         respond('What would you like to add?',sysName)
                         text=getAudio()
                         item = findItem(text)
                         quanity = findQ(text)
                         if 'nevermind' in item:
                             break
+                        confirmation = confirm('Just to be sure, you would like to add'+' '+quantity+' '+item)
+                        if confirmation == 'nevermind':
+                            break
+                    if 'nevermind' in item or 'nevermind' in confirmation:
+                        break
                     respond('Adding '+quantity +' '+item,sysName)
                     if quantity == "":
                         addItem(item)
@@ -163,13 +173,21 @@ def main():
                         item = findItem(text)
                         if 'nevermind' in item:
                             break
-                    while(not confirm('Just to be sure, you would like to remove'+' '+quantity+' '+item)):
+                    confirmation = confirm('Just to be sure, you would like to remove'+' '+quantity+' '+item)
+                    if confirmation == 'nevermind':
+                        break
+                    while(confirmation != 'yes'):
                         respond('What would you like to remove?',sysName)
                         text=getAudio()
                         item = findItem(text)
                         quanity = findQ(text)
                         if 'nevermind' in item:
                             break
+                        confirmation = confirm('Just to be sure, you would like to remove'+' '+quantity+' '+item)
+                        if confirmation == 'nevermind':
+                            break
+                    if 'nevermind' in item or 'nevermind' in confirmation:
+                        break
                     respond('Removing '+quantity +' '+item,sysName)
                     if quantity == "":
                         removeItem(item)
