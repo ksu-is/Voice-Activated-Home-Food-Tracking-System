@@ -1,3 +1,9 @@
+## Week 3
+- [] add gui 
+- [] add function to clear inventory
+- [] perform testing
+- [] update commenting on readme
+- [] look into creating installing
 ## Week 2 
 - [x] replace all print statements with text to speech
 - [X] rename system "kitchen" to only respond to when called upon
