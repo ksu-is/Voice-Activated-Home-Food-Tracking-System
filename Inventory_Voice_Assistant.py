@@ -94,7 +94,7 @@ def confirm(msg):
 #Quantity must be stated before the item or Q will return ""
 def findQ(txt):
     quantity = ""
-    for char in text:
+    for char in txt:
         if char.isdigit():
             quantity+=char
         else:
