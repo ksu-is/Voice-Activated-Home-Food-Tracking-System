@@ -136,7 +136,7 @@ def main():
                         item = findItem(text)
                         if 'nevermind' in item:
                             break
-                    while(not confirm('Just to be sure, you would like to add'quantity+' '+item)):
+                    while(not confirm('Just to be sure, you would like to add '+quantity+' '+item)):
                         respond('What would you like to add?',sysName)
                         text=getAudio()
                         item = findItem(text)
@@ -144,7 +144,7 @@ def main():
                         if 'nevermind' in item:
                             break
                     respond('Adding '+quantity +' '+item,sysName)
-                    if quantity = "":
+                    if quantity == "":
                         addItem(item)
                     else:
                         addItem(item,quantity)
@@ -161,7 +161,7 @@ def main():
                         item = findItem(text)
                         if 'nevermind' in item:
                             break
-                    while(not confirm('Just to be sure, you would like to remove'quantity+' '+item)):
+                    while(not confirm('Just to be sure, you would like to remove'+' '+quantity+' '+item)):
                         respond('What would you like to remove?',sysName)
                         text=getAudio()
                         item = findItem(text)
@@ -169,7 +169,7 @@ def main():
                         if 'nevermind' in item:
                             break
                     respond('Removing '+quantity +' '+item,sysName)
-                    if quantity = "":
+                    if quantity == "":
                         removeItem(item)
                     else:
                         removeItem(item,quantity)
