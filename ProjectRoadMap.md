@@ -3,7 +3,7 @@
 - [X] rename system "kitchen" to only respond to when called upon
 - [x] program confirmation
 - [X] allow user to add/remove custom item
-- []  
+- [x] add comments for function details 
 
 ## Week 1
 
