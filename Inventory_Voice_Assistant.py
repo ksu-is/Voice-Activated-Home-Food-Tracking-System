@@ -4,12 +4,14 @@ from os import path
 import speech_recognition as sr
 import pyttsx3
 
-def respond(msg):
+sysName='Kitchen'
+
+def respond(msg,speaker):
     engine=pyttsx3.init('sapi5')
     voices=engine.getProperty('voices')
     
     engine.setProperty('voice',voices[1].id)
-    print(msg)
+    print(speaker+':', msg)
     engine.say(msg)
     engine.runAndWait()
 
@@ -60,7 +62,7 @@ def removeItem(itemName, qt=1):
     inventoryFile = open('inventory.csv','w+')
     inventoryFile.seek(0) 
     inventoryFile.write("".join(lines))
-    respond('Remove Item')    
+    respond('Removing Item',sysName)    
 
 def getAudio():
     r = sr.Recognizer()
@@ -71,21 +73,21 @@ def getAudio():
     try:
         text = r.recognize_google(audio)
         text = text.lower().strip()    
-        respond("You said : {}".format(text))
+        print('You:',text)
         return(text) 
     except:
-        respond("Sorry could not recognize your voice")
+        respond("Sorry could not recognize your voice",sysName)
         return(getAudio())
     
 def confirm(msg):
-    respond(msg)
-    confirm = getAudio()
-    if 'yes' in confirm or 'ya' in confirm:
+    respond(msg,sysName)
+    c = getAudio()
+    if 'yes' in c or 'ya' in c or 'yeah' in c:
         return True
-    elif 'no' in confirm:
+    elif 'no' in c:
         return False
     else:
-        respond('Sorry, I did not quite catch that. Please respond with yes or no.')
+        respond('Sorry, I did not quite catch that. Please respond with yes or no.',sysName)
         return(confirm(msg))
 
 
@@ -97,47 +99,52 @@ def main():
         inventoryFile.close()
 
     text = "default"
-    while(not "exit kitchen" in text):            
+    while not "exit kitchen" in text:            
+        print('not shut down kitchen in text','shut down kitchen' in text)
         text=getAudio()
         if 'hey kitchen' in text:
             while True:
-                respond('Would you like to add or remove an item')
+                respond('What would you like to do?',sysName)
                 text=getAudio()
                 if 'nevermind' in text:
-                    respond('ok')
+                    respond('ok',sysName)
                     break
 
                 elif text.startswith('add'):
-                    respond('What item would you like to add?')
-                    item = getAudio()
+                    item = text[3::].strip()
+                    if item == "":
+                        respond('What item would you like to add?',sysName)
+                        item = getAudio()
                     if 'nevermind' in item:
                         break
                     while(not confirm('Just to be sure, you would like to add 1 '+item)):
-                        respond('What item would you like to add?')
+                        respond('What item would you like to add?',sysName)
                         item=getAudio()
                         if 'nevermind' in item:
                             break
                     if 'nevermind' in item:
                         break 
-                    respond('Adding 1 ' + item)
+                    respond('Adding 1 ' + item,sysName)
                     addItem(item,1)
                     break  
                 
                 elif text.startswith('remove'):
-                    respond('What item would you like to remove?')
-                    item = getAudio()
+                    item = text[6::].strip()
+                    if item == "":
+                        respond('What item would you like to remove?',sysName)
+                        item = getAudio()
                     if 'nevermind' in item:
                         break
                     while(not confirm('Just to be sure, you would like to remove 1 '+item)):
-                        respond('What item would you like to remove?')
+                        respond('What item would you like to remove?',sysName)
                         item=getAudio()
                         if 'nevermind' in item:
                             break  
                     if 'nevermind' in item:
                         break 
-                    respond('removing 1 ' + item)
+                    respond('removing 1 ' + item,sysName)
                     addItem(item,1)
                     break
                 
-    respond("exiting")
+    respond("exiting",sysName)
 main()
