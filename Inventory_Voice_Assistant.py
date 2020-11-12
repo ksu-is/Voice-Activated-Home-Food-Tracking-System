@@ -6,7 +6,7 @@ import pyttsx3
 
 sysName='Kitchen'
 
-def respond(msg,speaker):
+def respond(msg, speaker):
     engine=pyttsx3.init('sapi5')
     voices=engine.getProperty('voices')
     
@@ -58,7 +58,7 @@ def removeItem(itemName, qt=1):
             #found = True
             break
     if(not found):
-        respond(itemName + ' not found')
+        respond(itemName, ' not found')
     inventoryFile = open('inventory.csv','w+')
     inventoryFile.seek(0) 
     inventoryFile.write("".join(lines))
@@ -94,7 +94,7 @@ def confirm(msg):
 #Quantity must be stated before the item or Q will return ""
 def findQ(txt):
     quantity = ""
-    for char in text:
+    for char in txt:
         if char.isdigit():
             quantity+=char
         else:
@@ -140,7 +140,7 @@ def main():
                         respond('What would you like to add?',sysName)
                         text=getAudio()
                         item = findItem(text)
-                        quanity = findQ(text)
+                        quantity = findQ(text)
                         if 'nevermind' in item:
                             break
                     respond('Adding '+quantity +' '+item,sysName)
@@ -165,7 +165,7 @@ def main():
                         respond('What would you like to remove?',sysName)
                         text=getAudio()
                         item = findItem(text)
-                        quanity = findQ(text)
+                        quantity = findQ(text)
                         if 'nevermind' in item:
                             break
                     respond('Removing '+quantity +' '+item,sysName)
