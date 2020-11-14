@@ -4,6 +4,7 @@
 - [] perform testing
 - [] update commenting on readme
 - [] look into creating installing
+- [] Properly attribute modules/sources used to create program
 ## Week 2 
 - [x] replace all print statements with text to speech
 - [X] rename system "kitchen" to only respond to when called upon
