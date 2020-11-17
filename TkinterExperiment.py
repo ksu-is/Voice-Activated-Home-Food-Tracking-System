@@ -21,7 +21,7 @@ print(lst)
 #mainloop()
 
 
-from tkinter import 
+from tkinter import *
 pad=3
 class Table: 
       
@@ -31,7 +31,7 @@ class Table:
         for i in range(total_rows): 
             for j in range(total_columns): 
                   
-                self.e = Entry(root, width=50, fg='blue', 
+                self.e = Entry(root, width=30, fg='blue', 
                                font=('Arial',40,'bold')) 
                   
                 self.e.grid(row=i, column=j) 

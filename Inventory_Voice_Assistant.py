@@ -3,8 +3,9 @@ import os.path
 from os import path 
 import speech_recognition as sr
 import pyttsx3
+from tkinter import *
 
-sysName='Kitchen'
+sysName='kitchen'
 
 #Function allows for program to speak to user#
 #Prints text to console#
@@ -131,6 +132,48 @@ def main():
     if (not path.exists("inventory.csv")):
         inventoryFile = open('inventory.csv','w')
         inventoryFile.close()
+    inventoryFile = open('inventory.csv','r+')
+    inventoryFile.seek(0)
+    lines = inventoryFile.readlines()
+    inventoryFile.close()
+    lst = []
+    lst.append(['Item','Quantity'])
+    for line in lines:
+        print(line.strip())
+        lst.append(line.strip().split(',')) 
+    print(lst)   
+    #for line in lines:
+    #listbox.insert(END, line.replace(',','\t'))
+
+    #mainloop()
+
+
+    pad=3
+    class Table: 
+      
+        def __init__(self,root): 
+          
+            # code for creating table 
+            for i in range(total_rows): 
+                for j in range(total_columns): 
+                  
+                    self.e = Entry(root, width=30, fg='blue', 
+                               font=('Arial',40,'bold')) 
+                  
+                    self.e.grid(row=i, column=j) 
+                    self.e.insert(END, lst[i][j]) 
+#label.config(width=200)  
+#take the data 
+#find total number of rows and 
+#columns in list 
+    total_rows = len(lst) 
+    total_columns = len(lst[0]) 
+   
+#create root window 
+    root = Tk() 
+    t = Table(root)
+    print('hi') 
+    root.mainloop()
 
     text = "default"
     #Loop keeps listening until user speaks sysName and will only exit with "exit" + sysName#
