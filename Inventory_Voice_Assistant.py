@@ -4,9 +4,11 @@ from os import path
 import speech_recognition as sr
 import pyttsx3
 from tkinter import *
+from multiprocessing import Process
+
 
 sysName='kitchen'
-
+lst = []
 #Function allows for program to speak to user#
 #Prints text to console#
 def respond(msg:str, speaker:str):
@@ -40,7 +42,9 @@ def addItem(itemName:str,qt:str="1"):
     #if item is found in inventory, add new entry#    
     if(not found):
         lines.append(itemName+','+str(qt)+'\n')
-    #overwrite old inventory with new changes#    
+    #overwrite old inventory with new changes#  
+    global lst
+    lst = lines  
     inventoryFile = open('inventory.csv','w+')
     inventoryFile.seek(0) 
     inventoryFile.write("".join(lines))
@@ -69,6 +73,8 @@ def removeItem(itemName:str,qt:str="1"):
     if(not found):
         respond(itemName, ' not found')
     #overwrite old inventory with new changes#
+    global lst
+    lst = lines
     inventoryFile = open('inventory.csv','w+')
     inventoryFile.seek(0) 
     inventoryFile.write("".join(lines))
@@ -125,56 +131,13 @@ def findQ(txt:str)-> str:
 def findItem(txt:str)->str:
     item = ""
     item=txt.strip('0123456789').strip()
-    return item
+    return item 
 
 def main():
     # If inventory.csv does not exist, create the file#
     if (not path.exists("inventory.csv")):
         inventoryFile = open('inventory.csv','w')
         inventoryFile.close()
-    inventoryFile = open('inventory.csv','r+')
-    inventoryFile.seek(0)
-    lines = inventoryFile.readlines()
-    inventoryFile.close()
-    lst = []
-    lst.append(['Item','Quantity'])
-    for line in lines:
-        print(line.strip())
-        lst.append(line.strip().split(',')) 
-    print(lst)   
-    #for line in lines:
-    #listbox.insert(END, line.replace(',','\t'))
-
-    #mainloop()
-
-
-    pad=3
-    class Table: 
-      
-        def __init__(self,root): 
-          
-            # code for creating table 
-            for i in range(total_rows): 
-                for j in range(total_columns): 
-                  
-                    self.e = Entry(root, width=30, fg='blue', 
-                               font=('Arial',40,'bold')) 
-                  
-                    self.e.grid(row=i, column=j) 
-                    self.e.insert(END, lst[i][j]) 
-#label.config(width=200)  
-#take the data 
-#find total number of rows and 
-#columns in list 
-    total_rows = len(lst) 
-    total_columns = len(lst[0]) 
-   
-#create root window 
-    root = Tk() 
-    t = Table(root)
-    print('hi') 
-    root.mainloop()
-
     text = "default"
     #Loop keeps listening until user speaks sysName and will only exit with "exit" + sysName#
     while not "exit " + sysName in text:            
@@ -268,4 +231,48 @@ def main():
                     break
                 
     respond("exiting",sysName)
-main()
+def gui():
+    inventoryFile = open('inventory.csv','r+')
+    inventoryFile.seek(0)
+    lines = inventoryFile.readlines()
+    inventoryFile.close()
+    global lst
+    lst.append(['Item','Quantity'])
+    for line in lines:
+        print(line.strip())
+        lst.append(line.strip().split(',')) 
+    print(lst)   
+#for line in lines:
+    #listbox.insert(END, line.replace(',','\t'))
+
+#mainloop()
+
+
+    #from tkinter import *
+    pad=3
+    class Table: 
+      
+        def __init__(self,root): 
+          
+            # code for creating table 
+            for i in range(total_rows): 
+                for j in range(total_columns): 
+                  
+                    self.e = Entry(root, width=30, fg='blue', 
+                               font=('Arial',40,'bold')) 
+                  
+                    self.e.grid(row=i, column=j) 
+                    self.e.insert(END, lst[i][j]) 
+#label.config(width=200)  
+#take the data 
+#find total number of rows and 
+#columns in list 
+    total_rows = len(lst) 
+    total_columns = len(lst[0]) 
+   
+#create root window 
+    root = Tk() 
+    t = Table(root)
+    root.after(2000, main) 
+    root.mainloop()
+gui()
