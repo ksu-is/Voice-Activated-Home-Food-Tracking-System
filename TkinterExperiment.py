@@ -93,7 +93,7 @@ def query(itemName:str)-> str:
         #if item is found in inventory, modifies existing quatity#
         if itemName in lines[index]:
             temp = lines[index].split(',')
-            quantity= temp[1]
+            quantity= temp[1].strip()
             found = True
             return quantity
     if not found:
@@ -275,6 +275,7 @@ def main():
                         itemName = getAudio()
                     quantity = query(itemName) 
                     respond('Found ' + quantity + ' ' + itemName, sysName)
+                    break
                         
                   
 
