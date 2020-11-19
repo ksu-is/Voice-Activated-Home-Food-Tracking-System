@@ -163,6 +163,8 @@ def main():
                     #if user does not supply item, system prompts user to do so#
                     if item == "":
                         respond('What would you like to add?',sysName)
+                        if text.startswith('add'):
+                            text = text[3::].strip()
                         text = getAudio()
                         quantity = findQ(text)
                         item = findItem(text)
@@ -174,6 +176,8 @@ def main():
                         break
                     while(confirmation != 'yes'):
                         respond('What would you like to add?',sysName)
+                        if text.startswith('add'):
+                            text = text[3::].strip()
                         text=getAudio()
                         item = findItem(text)
                         quantity = findQ(text)
@@ -202,6 +206,8 @@ def main():
                     #if user does not supply item, system prompts user to do so#
                     if item == "":
                         respond('What would you like to remove?',sysName)
+                        if text.startswith('remove'):
+                            text = text[3::].strip()
                         text = getAudio()
                         quantity = findQ(text)
                         item = findItem(text)
@@ -213,6 +219,8 @@ def main():
                         break
                     while(confirmation != 'yes'):
                         respond('What would you like to remove?',sysName)
+                        if text.startswith('remove'):
+                            text = text[3::].strip()
                         text=getAudio()
                         item = findItem(text)
                         quantity = findQ(text)
