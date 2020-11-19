@@ -1,13 +1,20 @@
+## Week 5
+
+- [] Create installer
+## Week 4
+
+/* Thanksgiving Week */
 ## Week 3
+
 - [x] add gui
 - [] update dashboard to update upon adding/removing inventory
 - [x] add function to clear inventory
 - [] add function to query dashboard
 - [] perform testing
-- [] update commenting on readme
-- [] look into creating installer
+- [x] update commenting on readme
 - [X] Properly attribute modules/sources used to create program
 ## Week 2 
+
 - [x] replace all print statements with text to speech
 - [x] rename system "kitchen" to only respond to when called upon
 - [x] program confirmation
