@@ -1,15 +1,17 @@
 ## Week 3
-- [] add gui 
-- [] add function to clear inventory
+- [x] add gui
+- [] update dashboard to update upon adding/removing inventory
+- [x] add function to clear inventory
+- [] add function to query dashboard
 - [] perform testing
 - [] update commenting on readme
-- [] look into creating installing
+- [] look into creating installer
 - [X] Properly attribute modules/sources used to create program
 ## Week 2 
 - [x] replace all print statements with text to speech
-- [X] rename system "kitchen" to only respond to when called upon
+- [x] rename system "kitchen" to only respond to when called upon
 - [x] program confirmation
-- [X] allow user to add/remove custom item
+- [x] allow user to add/remove custom item
 - [x] add comments for function details 
 
 ## Week 1
