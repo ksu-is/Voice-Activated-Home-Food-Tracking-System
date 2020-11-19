@@ -193,7 +193,7 @@ def main():
                 
                 elif text.startswith('remove'):
                     #remove "remove" from command so as not to be processed in "remove" function#
-                    item = text[6::].strip()
+                    text = text[6::].strip()
                     #extracting quantity from user speech#
                     quantity = findQ(text)
                     #extracting item from user speech#
@@ -269,10 +269,10 @@ def gui():
 #columns in list 
     total_rows = len(lst) 
     total_columns = len(lst[0]) 
-   
+main()   
 #create root window 
-    root = Tk() 
-    t = Table(root)
-    root.after(2000, main) 
-    root.mainloop()
-gui()
+    #root = Tk() 
+    #t = Table(root)
+    #root.after(2000, main) 
+   # root.mainloop()
+#gui()
