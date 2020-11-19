@@ -3,7 +3,7 @@ import os.path
 from os import path 
 import speech_recognition as sr
 import pyttsx3
-from tkinter import *
+from tkinter import Tk, END, Entry
 from multiprocessing import Process
 
 
