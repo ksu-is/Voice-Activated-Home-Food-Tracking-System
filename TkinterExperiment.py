@@ -142,6 +142,7 @@ def main():
     #Loop keeps listening until user speaks sysName and will only exit with "exit" + sysName#
     while not "exit " + sysName in text:            
         #system will remain silent until user speaks "hey" + sysName#
+        
         text=getAudio(True)
         if "hey " + sysName in text:
             while True:
@@ -230,6 +231,15 @@ def main():
                         removeItem(item,quantity)
                     break
                 
+                elif text.startswith("clear"):
+                    confirmation = confirm('Just to be sure, you would like to clear inventory?')
+                    if confirmation != "yes":
+                        break
+                    else:
+                        inventoryFile = open('inventory.csv','w')
+                        inventoryFile.close()
+                        break
+
     respond("exiting",sysName)
 def gui():
     inventoryFile = open('inventory.csv','r+')
