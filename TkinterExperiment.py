@@ -80,6 +80,25 @@ def removeItem(itemName:str,qt:str="1"):
     inventoryFile.write("".join(lines))
     respond('Removing Item',sysName)    
 
+#function checks to see if item is in inventory, returns quantity as a string
+def query(itemName:str)-> str:
+    inventoryFile = open('inventory.csv','r+')
+    inventoryFile.seek(0)
+    lines = inventoryFile.readlines()
+    inventoryFile.close()
+    #print(lines)
+    found = False
+    #check to see if item is already inventory#
+    for index in range(len(lines)):
+        #if item is found in inventory, modifies existing quatity#
+        if itemName in lines[index]:
+            temp = lines[index].split(',')
+            quantity= temp[1]
+            found = True
+            return quantity
+    if not found:
+        return "0"    
+
 #listens to speech from user and transcribes to text#
 #If silent, system is listening with no output to user#
 def getAudio(silent=False):
@@ -207,7 +226,7 @@ def main():
                     if item == "":
                         respond('What would you like to remove?',sysName)
                         if text.startswith('remove'):
-                            text = text[3::].strip()
+                            text = text[6::].strip()
                         text = getAudio()
                         quantity = findQ(text)
                         item = findItem(text)
@@ -220,7 +239,7 @@ def main():
                     while(confirmation != 'yes'):
                         respond('What would you like to remove?',sysName)
                         if text.startswith('remove'):
-                            text = text[3::].strip()
+                            text = text[6::].strip()
                         text=getAudio()
                         item = findItem(text)
                         quantity = findQ(text)
@@ -246,9 +265,21 @@ def main():
                     else:
                         inventoryFile = open('inventory.csv','w')
                         inventoryFile.close()
+                        respond('Inventory has been cleared', sysName)
                         break
 
-    respond("exiting",sysName)
+                elif text.startswith('look up'):
+                    itemName = text[7::].strip()
+                    if itemName == "":
+                        respond('What would you like to look up?')
+                        itemName = getAudio()
+                    quantity = query(itemName) 
+                    respond('Found ' + quantity + ' ' + itemName, sysName)
+                        
+                  
+
+    
+respond("exiting",sysName)
 def gui():
     inventoryFile = open('inventory.csv','r+')
     inventoryFile.seek(0)
