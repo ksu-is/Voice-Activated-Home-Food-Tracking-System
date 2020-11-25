@@ -10,7 +10,7 @@
 - [] update dashboard to update upon adding/removing inventory
 - [x] add function to clear inventory
 - [x] add function to query dashboard
-- [] perform testing
+- [x] perform testing
 - [x] update commenting on readme
 - [X] Properly attribute modules/sources used to create program
 ## Week 2 
