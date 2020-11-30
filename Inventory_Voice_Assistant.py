@@ -3,8 +3,7 @@ import os.path
 from os import path 
 import speech_recognition as sr
 import pyttsx3
-from tkinter import *
-from multiprocessing import Process
+from tkinter import Tk, END, Entry
 
 
 sysName='kitchen'
@@ -80,6 +79,25 @@ def removeItem(itemName:str,qt:str="1"):
     inventoryFile.write("".join(lines))
     respond('Removing Item',sysName)    
 
+#function checks to see if item is in inventory, returns quantity as a string
+def query(itemName:str)-> str:
+    inventoryFile = open('inventory.csv','r+')
+    inventoryFile.seek(0)
+    lines = inventoryFile.readlines()
+    inventoryFile.close()
+    #print(lines)
+    found = False
+    #check to see if item is already inventory#
+    for index in range(len(lines)):
+        #if item is found in inventory, modifies existing quatity#
+        if itemName in lines[index]:
+            temp = lines[index].split(',')
+            quantity= temp[1].strip()
+            found = True
+            return quantity
+    if not found:
+        return "0"    
+
 #listens to speech from user and transcribes to text#
 #If silent, system is listening with no output to user#
 def getAudio(silent=False):
@@ -142,6 +160,7 @@ def main():
     #Loop keeps listening until user speaks sysName and will only exit with "exit" + sysName#
     while not "exit " + sysName in text:            
         #system will remain silent until user speaks "hey" + sysName#
+        
         text=getAudio(True)
         if "hey " + sysName in text:
             while True:
@@ -162,6 +181,8 @@ def main():
                     #if user does not supply item, system prompts user to do so#
                     if item == "":
                         respond('What would you like to add?',sysName)
+                        if text.startswith('add'):
+                            text = text[3::].strip()
                         text = getAudio()
                         quantity = findQ(text)
                         item = findItem(text)
@@ -173,6 +194,8 @@ def main():
                         break
                     while(confirmation != 'yes'):
                         respond('What would you like to add?',sysName)
+                        if text.startswith('add'):
+                            text = text[3::].strip()
                         text=getAudio()
                         item = findItem(text)
                         quantity = findQ(text)
@@ -201,6 +224,8 @@ def main():
                     #if user does not supply item, system prompts user to do so#
                     if item == "":
                         respond('What would you like to remove?',sysName)
+                        if text.startswith('remove'):
+                            text = text[6::].strip()
                         text = getAudio()
                         quantity = findQ(text)
                         item = findItem(text)
@@ -212,6 +237,8 @@ def main():
                         break
                     while(confirmation != 'yes'):
                         respond('What would you like to remove?',sysName)
+                        if text.startswith('remove'):
+                            text = text[6::].strip()
                         text=getAudio()
                         item = findItem(text)
                         quantity = findQ(text)
@@ -230,49 +257,25 @@ def main():
                         removeItem(item,quantity)
                     break
                 
-    respond("exiting",sysName)
-def gui():
-    inventoryFile = open('inventory.csv','r+')
-    inventoryFile.seek(0)
-    lines = inventoryFile.readlines()
-    inventoryFile.close()
-    global lst
-    lst.append(['Item','Quantity'])
-    for line in lines:
-        print(line.strip())
-        lst.append(line.strip().split(',')) 
-    print(lst)   
-#for line in lines:
-    #listbox.insert(END, line.replace(',','\t'))
+                elif text.startswith("clear"):
+                    confirmation = confirm('Just to be sure, you would like to clear inventory?')
+                    if confirmation != "yes":
+                        break
+                    else:
+                        inventoryFile = open('inventory.csv','w')
+                        inventoryFile.close()
+                        respond('Inventory has been cleared', sysName)
+                        break
 
-#mainloop()
+                elif text.startswith('look up'):
+                    itemName = text[7::].strip()
+                    if itemName == "":
+                        respond('What would you like to look up?')
+                        itemName = getAudio()
+                    quantity = query(itemName) 
+                    respond('Found ' + quantity + ' ' + itemName, sysName)
+                    break
+main()                    
+respond("exiting",sysName)
 
 
-    #from tkinter import *
-    pad=3
-    class Table: 
-      
-        def __init__(self,root): 
-          
-            # code for creating table 
-            for i in range(total_rows): 
-                for j in range(total_columns): 
-                  
-                    self.e = Entry(root, width=30, fg='blue', 
-                               font=('Arial',40,'bold')) 
-                  
-                    self.e.grid(row=i, column=j) 
-                    self.e.insert(END, lst[i][j]) 
-#label.config(width=200)  
-#take the data 
-#find total number of rows and 
-#columns in list 
-    total_rows = len(lst) 
-    total_columns = len(lst[0]) 
-main()   
-#create root window 
-    #root = Tk() 
-    #t = Table(root)
-    #root.after(2000, main) 
-   # root.mainloop()
-#gui()
