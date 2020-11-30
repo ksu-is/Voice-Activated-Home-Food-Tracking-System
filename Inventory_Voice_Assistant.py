@@ -7,11 +7,10 @@ from tkinter import Tk, END, Entry
 
 
 sysName='kitchen'
-lst = []
 #Function allows for program to speak to user#
 #Prints text to console#
 def respond(msg:str, speaker:str):
-    engine=pyttsx3.init('sapi5')
+    engine=pyttsx3.init()
     voices=engine.getProperty('voices')
     
     engine.setProperty('voice',voices[1].id)
