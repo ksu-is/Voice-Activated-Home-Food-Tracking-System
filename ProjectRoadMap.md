@@ -1,8 +1,8 @@
 ## Week 5
 
-- [] Create installer
-- [] update dashboard to update upon adding/removing inventory
-- [] perform more testing
+- [] Create PowerPoint
+- [] Update Documentation
+- [] Update dashboard to update upon adding/removing inventory
 ## Week 4
 /* Thanksgiving Week */
 ## Week 3
