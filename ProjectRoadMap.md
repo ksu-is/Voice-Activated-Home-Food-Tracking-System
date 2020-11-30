@@ -1,7 +1,7 @@
 ## Week 5
 
-- [] Create PowerPoint
-- [] Update Documentation
+- [X] Create PowerPoint
+- [X] Update Documentation
 - [] Update dashboard to update upon adding/removing inventory
 ## Week 4
 /* Thanksgiving Week */
