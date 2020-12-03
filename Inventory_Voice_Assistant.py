@@ -60,7 +60,7 @@ def removeItem(itemName:str,qt:str="1"):
             temp2= temp[1]
             oldQ= int(temp2)
             found= True
-            if oldQ-qt >0:
+            if oldQ-int(qt) >0:
                 lines[index]=itemName+','+str(oldQ-int(qt))+'\n'
             else:
                 lines.remove(index)
