@@ -266,7 +266,7 @@ def main():
                 elif text.startswith('look up'):
                     itemName = text[7::].strip()
                     if itemName == "":
-                        respond('What would you like to look up?')
+                        respond('What would you like to look up?', sysName)
                         itemName = getAudio()
                     quantity = query(itemName) 
                     respond('Found ' + quantity + ' ' + itemName, sysName)
