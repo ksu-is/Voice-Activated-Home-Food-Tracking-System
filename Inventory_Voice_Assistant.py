@@ -68,8 +68,6 @@ def removeItem(itemName:str,qt:str="1"):
     if(not found):
         respond(itemName, ' not found')
     #overwrite old inventory with new changes#
-    global lst
-    lst = lines
     inventoryFile = open('inventory.csv','w+')
     inventoryFile.seek(0) 
     inventoryFile.write("".join(lines))
