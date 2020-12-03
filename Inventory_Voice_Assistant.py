@@ -27,13 +27,14 @@ def addItem(itemName:str,qt:str="1"):
     
     #check to see if item is already inventory#
     found = False
+    #iName is used to account for the fact that a word can be plural if it ends in s
+    if itemName[-1] == 's':
+        iName = itemName[0:len(itemName)-2]
+    else:
+        iName=itemName
     for index in range(len(lines)):
         #if item is found in inventory, modifies existing quatity#
-        #iName is used to account for the fact that a word can be plural if it ends in s
-        if itemName[-1] == 's':
-           iName = itemName[0:len(itemName)-2]
-        else:
-            iName=itemName
+        
         if iName in lines[index]:
             temp = lines[index].split(',')
             temp2= temp[1]
@@ -58,12 +59,12 @@ def removeItem(itemName:str,qt:str="1"):
     #print(lines)
     found = False
     #check to see if item is already inventory#
+    if itemName[-1] == 's':
+           iName = itemName[0:len(itemName)-2]
+    else:
+        iName=itemName
     for index in range(len(lines)):
         #if item is found in inventory, modifies existing quatity#
-        if itemName[-1] == 's':
-           iName = itemName[0:len(itemName)-2]
-        else:
-            iName=itemName
         if iName in lines[index]:
             temp = lines[index].split(',')
             temp2= temp[1]
@@ -91,9 +92,13 @@ def query(itemName:str)-> str:
     #print(lines)
     found = False
     #check to see if item is already inventory#
+    if itemName[-1] == 's':
+           iName = itemName[0:len(itemName)-2]
+    else:
+        iName=itemName
     for index in range(len(lines)):
         #if item is found in inventory, modifies existing quatity#
-        if itemName in lines[index]:
+        if iName in lines[index]:
             temp = lines[index].split(',')
             quantity= temp[1].strip()
             found = True
