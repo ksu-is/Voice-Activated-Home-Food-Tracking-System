@@ -4,7 +4,7 @@ from os import path
 import speech_recognition as sr
 import pyttsx3
 
-
+#sysName must be lowercase
 sysName='kitchen'
 #Function allows for program to speak to user#
 #Prints text to console#
@@ -13,7 +13,7 @@ def respond(msg:str, speaker:str):
     voices=engine.getProperty('voices')
     
     engine.setProperty('voice',voices[1].id)
-    print(speaker+':', msg)
+    print(speaker.title()+':', msg)
     engine.say(msg)
     engine.runAndWait()
 
@@ -33,7 +33,7 @@ def addItem(itemName:str,qt:str="1"):
             temp = lines[index].split(',')
             temp2= temp[1]
             oldQ=int(temp2)
-            lines[index]=itemName+','+str(int(qt+oldQ))+'\n'
+            lines[index]=itemName+','+str(int(qt)+oldQ)+'\n'
             found = True
             break
     #if item is found in inventory, add new entry#    
