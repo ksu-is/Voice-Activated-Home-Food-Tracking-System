@@ -40,8 +40,6 @@ def addItem(itemName:str,qt:str="1"):
     if(not found):
         lines.append(itemName+','+str(qt)+'\n')
     #overwrite old inventory with new changes#  
-    global lst
-    lst = lines  
     inventoryFile = open('inventory.csv','w+')
     inventoryFile.seek(0) 
     inventoryFile.write("".join(lines))
@@ -275,5 +273,3 @@ def main():
                     break
 main()                    
 respond("exiting",sysName)
-
-
